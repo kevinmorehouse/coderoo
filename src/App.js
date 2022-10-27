@@ -2,6 +2,10 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-cobalt";
+import "ace-builds/src-noconflict/ext-language_tools";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -28,10 +32,9 @@ const App = () => {
     });
   };
 
-  const handleChange = (e) => {
-    const text = e.target.value;
-    setText(text);
-    writeString(text);
+  const handleChange = (change) => {
+    setText(change);
+    writeString(change);
   };
 
   useEffect(() => {
@@ -43,7 +46,29 @@ const App = () => {
 
   return (
     <div className='App'>
-      <textarea value={text} onChange={handleChange}></textarea>
+      <AceEditor
+        value={text}
+        mode='javascript'
+        theme='cobalt'
+        onChange={handleChange}
+        name='Editor'
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          highlightActiveLine: true,
+          behavioursEnabled: true,
+          wrapBehavioursEnabled: true,
+          tabSize: 2,
+          showGutter: true,
+          showFoldWidgets: true,
+          fadeFoldWidgets: true,
+          fontSize: 15,
+          displayIndentGuides: true,
+          highlightSelectedWord: true,
+        }}
+      />
     </div>
   );
 };
