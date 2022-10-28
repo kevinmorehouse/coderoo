@@ -1,4 +1,4 @@
-import "./App.css";
+import "./Editor.css";
 import React, { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
@@ -21,33 +21,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-const App = () => {
-  const [text, setText] = useState("");
+const Editor = (props) => {
+  const [js, setJs] = useState("");
+  const { roomId } = props;
 
-  const messageRef = ref(database, "strings/");
+  const roomRef = ref(database, `rooms/${roomId}/`);
 
-  const writeString = (str) => {
-    set(ref(database, "strings/"), {
-      message: str,
+  // Listen for changes to content in current room
+  useEffect(() => {
+    onValue(roomRef, (snapshot) => {
+      const data = snapshot.val();
+      setJs(data.jsContent);
+    });
+  });
+
+  // Handler for updating JS content in database.
+  const updateJS = (content, roomId) => {
+    set(roomRef, {
+      jsContent: content,
     });
   };
 
   const handleChange = (change) => {
-    setText(change);
-    writeString(change);
+    setJs(change);
+    updateJS(change);
   };
 
-  useEffect(() => {
-    onValue(messageRef, (snapshot) => {
-      const data = snapshot.val();
-      setText(data.message);
-    });
-  });
-
   return (
-    <div className='App'>
+    <div className='Editor'>
       <AceEditor
-        value={text}
+        value={js}
         mode='javascript'
         theme='cobalt'
         onChange={handleChange}
@@ -73,4 +76,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Editor;
