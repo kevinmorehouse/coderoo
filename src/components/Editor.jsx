@@ -62,6 +62,7 @@ const Editor = (props) => {
           enableSnippets: true,
           highlightActiveLine: true,
           behavioursEnabled: true,
+          wrap: true,
           wrapBehavioursEnabled: true,
           tabSize: 2,
           showGutter: true,
