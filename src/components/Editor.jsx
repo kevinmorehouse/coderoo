@@ -1,9 +1,14 @@
-import "./Editor.css";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+
+// Firebase imports
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+
+// Ace Editor imports
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-css";
+import "ace-builds/src-noconflict/mode-xml";
 import "ace-builds/src-noconflict/theme-cobalt";
 import "ace-builds/src-noconflict/ext-language_tools";
 
@@ -22,36 +27,34 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 const Editor = (props) => {
-  const [js, setJs] = useState("");
-  const { roomId } = props;
+  const { roomId, mode, displayName, value, onChange } = props;
 
-  const roomRef = ref(database, `rooms/${roomId}/`);
+  const contentRef = ref(database, `rooms/${roomId}/${mode}`);
 
   // Listen for changes to content in current room
   useEffect(() => {
-    onValue(roomRef, (snapshot) => {
+    onValue(contentRef, (snapshot) => {
       const data = snapshot.val();
-      setJs(data.jsContent);
+      onChange(data);
     });
   });
 
-  // Handler for updating JS content in database.
-  const updateJS = (content, roomId) => {
-    set(roomRef, {
-      jsContent: content,
-    });
+  // Handler for updating content in database.
+  const updateValueInDatabase = (value) => {
+    set(contentRef, value);
   };
 
   const handleChange = (change) => {
-    setJs(change);
-    updateJS(change);
+    onChange(change);
+    updateValueInDatabase(change);
   };
 
   return (
-    <div className='Editor'>
+    <div className='editor'>
+      <div className='editor-header'>{displayName.toUpperCase()}</div>
       <AceEditor
-        value={js}
-        mode='javascript'
+        value={value}
+        mode={mode}
         theme='cobalt'
         onChange={handleChange}
         name='Editor'
