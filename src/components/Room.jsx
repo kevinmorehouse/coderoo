@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 import { useParams } from "react-router-dom";
-import "./Room.css";
 
 const Room = () => {
   const [js, setJs] = useState("");
