@@ -47,7 +47,12 @@ const Room = () => {
       <Grid2 item xs={6}>
         <TabContext value={value}>
           <Box>
-            <TabList value={value} onChange={handleChange} centered>
+            <TabList
+              value={value}
+              onChange={handleChange}
+              centered
+              selectionFollowsFocus
+            >
               <Tab label='HTML' value='1' />
               <Tab label='CSS' value='2' />
               <Tab label='JS' value='3' />
