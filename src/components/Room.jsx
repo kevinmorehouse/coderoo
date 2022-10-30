@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Box, Tab } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
+import EditorPreview from "./EditorPreview";
 import "./Room.css";
 
 // Firebase imports
@@ -19,14 +20,14 @@ const Room = () => {
   const [js, setJs] = useState("");
   const [css, setCss] = useState("");
   const [html, setHtml] = useState("");
-  const [srcDoc, setSrcDoc] = useState("");
-  const { roomId } = useParams();
   const [value, setValue] = useState("1");
 
+  const { roomId } = useParams();
   const jsRef = ref(database, `rooms/${roomId}/javascript`);
   const htmlRef = ref(database, `rooms/${roomId}/xml`);
   const cssRef = ref(database, `rooms/${roomId}/css`);
 
+  // Set up listeners for changes to editor content.
   useEffect(() => {
     onValue(htmlRef, (snapshot) => {
       const data = snapshot.val();
@@ -44,6 +45,7 @@ const Room = () => {
     });
   });
 
+  // Handle changes to editor content.
   const handleHtmlChange = (changedValue) => {
     setHtml(changedValue);
     set(htmlRef, changedValue);
@@ -62,20 +64,6 @@ const Room = () => {
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setSrcDoc(`
-      <html>
-        <body>${html}</body>
-        <style>${css}</style>
-        <script>${js}</script>
-      </html>
-    `);
-    }, 200);
-
-    return () => clearTimeout(timeout);
-  }, [html, css, js]);
 
   return (
     <Grid2 container spacing={2}>
@@ -136,6 +124,7 @@ const Room = () => {
               fontFamily: "Roboto",
               fontSize: "14px",
               fontWeight: "500",
+              padding: "1.75px",
             }}
           >
             <p>OUTPUT</p>
@@ -143,12 +132,7 @@ const Room = () => {
           <Box
             sx={{ height: "50vh", boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)" }}
           >
-            <iframe
-              srcDoc={srcDoc}
-              title='output'
-              sandbox='allow-scripts'
-              frameBorder='0'
-            />
+            <EditorPreview html={html} css={css} js={js} />
           </Box>
         </Box>
       </Grid2>
