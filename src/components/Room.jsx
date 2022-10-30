@@ -6,6 +6,15 @@ import { Box, Tab } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 import "./Room.css";
 
+// Firebase imports
+import { firebaseConfig } from "../firebaseConfig";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+
+// Firebase init
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
 const Room = () => {
   const [js, setJs] = useState("");
   const [css, setCss] = useState("");
@@ -14,7 +23,43 @@ const Room = () => {
   const { roomId } = useParams();
   const [value, setValue] = useState("1");
 
-  const handleChange = (event, newValue) => {
+  const jsRef = ref(database, `rooms/${roomId}/javascript`);
+  const htmlRef = ref(database, `rooms/${roomId}/xml`);
+  const cssRef = ref(database, `rooms/${roomId}/css`);
+
+  useEffect(() => {
+    onValue(htmlRef, (snapshot) => {
+      const data = snapshot.val();
+      setHtml(data);
+    });
+
+    onValue(cssRef, (snapshot) => {
+      const data = snapshot.val();
+      setCss(data);
+    });
+
+    onValue(jsRef, (snapshot) => {
+      const data = snapshot.val();
+      setJs(data);
+    });
+  });
+
+  const handleHtmlChange = (changedValue) => {
+    setHtml(changedValue);
+    set(htmlRef, changedValue);
+  };
+
+  const handleCssChange = (changedValue) => {
+    setCss(changedValue);
+    set(cssRef, changedValue);
+  };
+
+  const handleJsChange = (changedValue) => {
+    setJs(changedValue);
+    set(jsRef, changedValue);
+  };
+
+  const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -32,16 +77,6 @@ const Room = () => {
     return () => clearTimeout(timeout);
   }, [html, css, js]);
 
-  const handleHtmlChange = (changedValue) => {
-    setHtml(changedValue);
-  };
-  const handleCssChange = (changedValue) => {
-    setCss(changedValue);
-  };
-  const handleJsChange = (changedValue) => {
-    setJs(changedValue);
-  };
-
   return (
     <Grid2 container spacing={2}>
       <Grid2 item xs={6}>
@@ -49,7 +84,7 @@ const Room = () => {
           <Box>
             <TabList
               value={value}
-              onChange={handleChange}
+              onChange={handleTabChange}
               centered
               selectionFollowsFocus
             >
