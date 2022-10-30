@@ -27,7 +27,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 const Editor = (props) => {
-  const { roomId, mode, displayName, value, onChange } = props;
+  const { roomId, mode, value, onChange } = props;
 
   const contentRef = ref(database, `rooms/${roomId}/${mode}`);
 
@@ -51,12 +51,13 @@ const Editor = (props) => {
 
   return (
     <div className='editor'>
-      <div className='editor-header'>{displayName.toUpperCase()}</div>
       <AceEditor
         value={value}
         mode={mode}
         theme='cobalt'
         onChange={handleChange}
+        width='100%'
+        height='50vh'
         name='Editor'
         editorProps={{ $blockScrolling: true }}
         setOptions={{
@@ -74,6 +75,7 @@ const Editor = (props) => {
           fontSize: 15,
           displayIndentGuides: true,
           highlightSelectedWord: true,
+          useWorker: false,
         }}
       />
     </div>

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 import { useParams } from "react-router-dom";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { Box, Tab } from "@mui/material";
+import { TabPanel, TabContext, TabList } from "@mui/lab";
+import "./Room.css";
 
 const Room = () => {
   const [js, setJs] = useState("");
@@ -8,6 +12,11 @@ const Room = () => {
   const [html, setHtml] = useState("");
   const [srcDoc, setSrcDoc] = useState("");
   const { roomId } = useParams();
+  const [value, setValue] = useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -34,46 +43,76 @@ const Room = () => {
   };
 
   return (
-    <div className='room-container'>
-      <p>You are in room: {roomId}</p>
-      <div className='pane-container'>
-        <div className='pane editor-pane'>
-          <Editor
-            roomId={roomId}
-            mode='xml'
-            displayName='html'
-            value={html}
-            onChange={handleHtmlChange}
-          />
-          <Editor
-            roomId={roomId}
-            mode='css'
-            displayName='css'
-            value={css}
-            onChange={handleCssChange}
-          />
-          <Editor
-            roomId={roomId}
-            mode='javascript'
-            displayName='javascript'
-            value={js}
-            onChange={handleJsChange}
-          />
-        </div>
-        <div className='pane iframe-pane'>
-          <p className='iframe-pane-header'>Output</p>
-          <iframe
-            srcDoc={srcDoc}
-            title='output'
-            sandbox='allow-scripts'
-            height='100%'
-            width='100%'
-            frameBorder='0'
-            style={{ border: "1px solid black" }}
-          />
-        </div>
-      </div>
-    </div>
+    <Grid2 container spacing={2}>
+      <Grid2 item xs={6}>
+        <TabContext value={value}>
+          <Box>
+            <TabList value={value} onChange={handleChange} centered>
+              <Tab label='HTML' value='1' />
+              <Tab label='CSS' value='2' />
+              <Tab label='JS' value='3' />
+            </TabList>
+          </Box>
+          <Box
+            sx={{
+              boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+              paddingBottom: "0px",
+            }}
+          >
+            <TabPanel value='1'>
+              <Editor
+                roomId={roomId}
+                mode='xml'
+                value={html}
+                onChange={handleHtmlChange}
+              />
+            </TabPanel>
+            <TabPanel value='2'>
+              <Editor
+                roomId={roomId}
+                mode='css'
+                value={css}
+                onChange={handleCssChange}
+              />
+            </TabPanel>
+            <TabPanel value='3'>
+              <Editor
+                roomId={roomId}
+                mode='javascript'
+                value={js}
+                onChange={handleJsChange}
+              />
+            </TabPanel>
+          </Box>
+        </TabContext>
+      </Grid2>
+      <Grid2 item xs={6}>
+        <Box sx={{ height: "100%" }}>
+          <Box
+            sx={{
+              backgroundColor: "white",
+              color: "rgba(0, 0, 0, 0.6)",
+              textAlign: "center",
+              fontFamily: "Roboto",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+          >
+            <p>OUTPUT</p>
+          </Box>
+          <Box
+            sx={{ height: "50vh", boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)" }}
+          >
+            <iframe
+              srcDoc={srcDoc}
+              title='output'
+              sandbox='allow-scripts'
+              frameBorder='0'
+            />
+          </Box>
+        </Box>
+      </Grid2>
+    </Grid2>
   );
 };
 
