@@ -8,9 +8,9 @@ const EditorPreview = (props) => {
     const timeout = setTimeout(() => {
       setSrcDoc(`
       <html>
-        <body>${html}</body>
-        <style>${css}</style>
-        <script>${js}</script>
+        <body>${html === null ? "" : html}</body>
+        <style>${css === null ? "" : css}</style>
+        <script>${js === null ? "" : js}</script>
       </html>
     `);
     }, 200);
