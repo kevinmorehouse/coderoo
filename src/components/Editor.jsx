@@ -9,7 +9,7 @@ import "ace-builds/src-noconflict/theme-cobalt";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 const Editor = (props) => {
-  const { mode, value, onChange } = props;
+  const { mode, value, placeholder, onChange } = props;
 
   const handleChange = (change) => {
     onChange(change);
@@ -25,6 +25,7 @@ const Editor = (props) => {
         width='100%'
         height='50vh'
         name='Editor'
+        placeholder={placeholder}
         editorProps={{ $blockScrolling: true }}
         setOptions={{
           enableBasicAutocompletion: true,

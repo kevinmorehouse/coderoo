@@ -92,6 +92,7 @@ const Room = () => {
                 roomId={roomId}
                 mode='xml'
                 value={html}
+                placeholder='Enter your HTML here'
                 onChange={handleHtmlChange}
               />
             </TabPanel>
@@ -100,6 +101,7 @@ const Room = () => {
                 roomId={roomId}
                 mode='css'
                 value={css}
+                placeholder='Enter your CSS here'
                 onChange={handleCssChange}
               />
             </TabPanel>
@@ -108,6 +110,7 @@ const Room = () => {
                 roomId={roomId}
                 mode='javascript'
                 value={js}
+                placeholder='Enter your JS here'
                 onChange={handleJsChange}
               />
             </TabPanel>
