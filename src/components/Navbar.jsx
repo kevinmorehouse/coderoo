@@ -8,7 +8,7 @@ const Navbar = () => {
   const location = useLocation();
   const roomId =
     location.pathname.length > 1
-      ? location.pathname.match(/[^(?:/room/)].*/g)[0]
+      ? location.pathname.match(/(?<=\/room\/).*/)
       : "";
 
   return (
