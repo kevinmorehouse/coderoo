@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 import { useParams } from "react-router-dom";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { Box, Tab } from "@mui/material";
+import { Box, Tab, Typography } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 import EditorPreview from "./EditorPreview";
 import "./Room.css";
@@ -119,19 +119,9 @@ const Room = () => {
       </Grid2>
       <Grid2 item xs={6}>
         <Box sx={{ height: "100%" }}>
-          <Box
-            sx={{
-              backgroundColor: "white",
-              color: "rgba(0, 0, 0, 0.6)",
-              textAlign: "center",
-              fontFamily: "Roboto",
-              fontSize: "14px",
-              fontWeight: "500",
-              padding: "1.75px",
-            }}
-          >
-            <p>OUTPUT</p>
-          </Box>
+          <Typography variant='button' color={"grey.700"}>
+            <p style={{ textAlign: "center", margin: 7 }}>OUTPUT</p>
+          </Typography>
           <Box
             sx={{ height: "50vh", boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)" }}
           >

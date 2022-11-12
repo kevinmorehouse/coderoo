@@ -15,7 +15,7 @@ const Navbar = () => {
     <>
       <AppBar
         position='absolute'
-        color='default'
+        color='transparent'
         elevation={0}
         sx={{
           position: "relative",
@@ -23,19 +23,20 @@ const Navbar = () => {
         }}
       >
         <Toolbar>
-          <Link
-            style={{
-              textDecoration: "none",
+          <Typography
+            sx={{
               fontFamily: "Roboto",
-              color: "rgba(0, 0, 0, 0.6)",
-              marginRight: "1rem",
-              padding: "1px",
+              fontSize: "1.75vw",
+              fontWeight: 500,
+              marginRight: "10px",
             }}
-            to={"/"}
           >
-            CODEROO
-          </Link>
-          <Typography variant='button' color='primary'>
+            <Link style={{ color: "#000", textDecoration: "none" }} to={"/"}>
+              <span className='text-gradient-rtl'>&lt;</span>Coderoo{" "}
+              <span className='text-gradient-rtl'>/&gt;</span>
+            </Link>
+          </Typography>
+          <Typography variant='body2' color='primary'>
             {roomId ? "Current Room: " + roomId : ""}
           </Typography>
         </Toolbar>

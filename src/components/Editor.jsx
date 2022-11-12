@@ -5,7 +5,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-xml";
-import "ace-builds/src-noconflict/theme-cobalt";
+import "ace-builds/src-noconflict/theme-eclipse";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 const Editor = (props) => {
@@ -20,7 +20,7 @@ const Editor = (props) => {
       <AceEditor
         value={value}
         mode={mode}
-        theme='cobalt'
+        theme='eclipse'
         onChange={handleChange}
         width='100%'
         height='50vh'
@@ -28,9 +28,6 @@ const Editor = (props) => {
         placeholder={placeholder}
         editorProps={{ $blockScrolling: true }}
         setOptions={{
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true,
-          enableSnippets: true,
           highlightActiveLine: true,
           behavioursEnabled: true,
           wrap: true,
@@ -39,7 +36,8 @@ const Editor = (props) => {
           showGutter: true,
           showFoldWidgets: true,
           fadeFoldWidgets: true,
-          fontSize: 15,
+          fontSize: 20,
+          fontFamily: "Roboto Mono",
           displayIndentGuides: true,
           highlightSelectedWord: true,
           useWorker: false,

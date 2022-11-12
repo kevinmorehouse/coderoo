@@ -10,16 +10,22 @@ import CodeIcon from "@mui/icons-material/Code";
 
 const Home = () => {
   const [formText, setFormText] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const text = e.target.value.toLowerCase();
+    text.length === 0 ? setError(true) : setError(false);
     setFormText(text);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/room/${formText}`);
+    if (e.target[0].value) {
+      navigate(`/room/${formText}`);
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -41,6 +47,8 @@ const Home = () => {
         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin='normal'
+            error={error}
+            helperText={error ? "Please enter a room name" : ""}
             required
             fullWidth
             id='room'
@@ -56,7 +64,7 @@ const Home = () => {
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
           >
-            Enter room
+            Enter Room 😎
           </Button>
         </Box>
       </Box>

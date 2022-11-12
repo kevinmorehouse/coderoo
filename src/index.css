@@ -1,3 +1,100 @@
 body {
   margin: 0px !important;
 }
+
+.logo {
+  margin-right: 5px;
+}
+
+.text-gradient {
+  background: rgb(255, 118, 152);
+  background: -moz-linear-gradient(
+    180deg,
+    rgba(255, 118, 152, 1) 0%,
+    rgba(149, 60, 202, 1) 60%,
+    hsl(252, 94%, 50%) 86%
+  );
+  background: -webkit-linear-gradient(
+    180deg,
+    rgba(255, 118, 152, 1) 0%,
+    rgba(149, 60, 202, 1) 60%,
+    rgba(55, 8, 247, 1) 86%
+  );
+  background: linear-gradient(
+    180deg,
+    rgba(255, 118, 152, 1) 0%,
+    rgba(149, 60, 202, 1) 60%,
+    rgba(55, 8, 247, 1) 86%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7698",endColorstr="#3708f7",GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e4a9e1",endColorstr="#0007ff",GradientType=1);
+  /* Mask the color to the text, and remove the rest  */
+  -webkit-background-clip: text;
+  /* Make the text fill color value transparent so the masked background color comes through */
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-rtl {
+  background: rgb(255, 118, 152);
+  background: -moz-linear-gradient(
+    270deg,
+    rgba(255, 118, 152, 1) 0%,
+    rgba(149, 60, 202, 1) 25%,
+    rgba(55, 8, 247, 1) 76%
+  );
+  background: -webkit-linear-gradient(
+    270deg,
+    rgba(255, 118, 152, 1) 0%,
+    rgba(149, 60, 202, 1) 25%,
+    #3708f7 76%
+  );
+  background: linear-gradient(
+    270deg,
+    rgba(255, 118, 152, 1) 0%,
+    rgba(149, 60, 202, 1) 25%,
+    rgba(55, 8, 247, 1) 76%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7698",endColorstr="#3708f7",GradientType=1);
+  /* Mask the color to the text, and remove the rest  */
+  -webkit-background-clip: text;
+  /* Make the text fill color value transparent so the masked background color comes through */
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-button {
+  background-image: linear-gradient(
+    92.88deg,
+    #3550b2 9.16%,
+    #5643cc 43.89%,
+    #673fd7 64.72%
+  );
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5vw;
+  font-weight: 500;
+  height: 5vw;
+  padding: 0 1.5vw;
+  text-align: center;
+  transition: all 0.5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.hero-button:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: 0.1s;
+}
+
+@media (min-width: 768px) {
+  .hero-button {
+    padding: 0 2.6rem;
+  }
+}
