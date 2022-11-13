@@ -14,7 +14,7 @@ const Home = () => {
             variant='h1'
             sx={{
               fontWeight: 600,
-              fontSize: "3.5vw",
+              fontSize: "calc(22px + 2vw)",
             }}
           >
             Coderoo is a real-time collaborative IDE designed specifically for
@@ -24,7 +24,7 @@ const Home = () => {
             style={{
               fontFamily: "Roboto Mono",
               fontWeight: 300,
-              fontSize: "1.5vw",
+              fontSize: "calc(14px + 0.5vw)",
             }}
           >
             Begin teaching coding fundamentals in <b>Javascript</b>, <b>HTML</b>
@@ -38,7 +38,7 @@ const Home = () => {
           </Link>
         </Container>
       </Grid2>
-      <Grid2 xs={5}>
+      <Grid2 xs={5} display={{ xs: "none", md: "block" }}>
         <Container maxWidth='md' fixed>
           <img src={tutoring} alt='By vectorjuice on Freepik' width={"100%"} />
         </Container>

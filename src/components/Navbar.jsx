@@ -26,7 +26,7 @@ const Navbar = () => {
           <Typography
             sx={{
               fontFamily: "Roboto",
-              fontSize: "1.75vw",
+              fontSize: "calc(18px + 0.5vw)",
               fontWeight: 500,
               marginRight: "10px",
             }}
