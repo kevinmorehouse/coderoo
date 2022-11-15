@@ -27,10 +27,11 @@ const Home = () => {
               fontSize: "calc(14px + 0.5vw)",
             }}
           >
-            Begin teaching coding fundamentals in <b>Javascript</b>, <b>HTML</b>
-            , and <b>CSS</b> right away, without the distracting bells and
-            whistles of modern editors.
+            Click below to begin creating a space where you and your students
+            can code together in <b>Javascript</b>, <b>HTML</b>, and <b>CSS</b>{" "}
+            right away—from anywhere in the world!
           </p>
+          <br />
           <Link to={"/join-room"}>
             <button className='hero-button'>
               Click here to get started 😄
